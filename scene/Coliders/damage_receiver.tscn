@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bsnmjvglxp7g6"]
+
+[node name="DamageReceiver" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+debug_color = Color(0.67368203, 0.46557152, 0.54991776, 0.41960785)

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd7m4iwugpa7k"]
+
+[ext_resource type="Script" uid="uid://bss4mgihbqfdc" path="res://character_body_2d.gd" id="1_hyfel"]
+[ext_resource type="Texture2D" uid="uid://oi70ck2kxv0n" path="res://assets/art/characters/shadow.png" id="2_ft3jx"]
+[ext_resource type="PackedScene" uid="uid://cf6mt8tkn7hu7" path="res://scene/Coliders/damager_emitter.tscn" id="3_1xt01"]
+
+[node name="character" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_hyfel")
+
+[node name="shadowSprites" type="Sprite2D" parent="."]
+texture = ExtResource("2_ft3jx")
+
+[node name="characterSprites" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="DamagerEmitter" parent="." instance=ExtResource("3_1xt01")]
+
+[editable path="DamagerEmitter"]
