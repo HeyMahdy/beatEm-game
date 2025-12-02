@@ -11,7 +11,7 @@ const Gravity := 600.0
 @onready var damager_emitter := $DamagerEmitter
 @onready var character_sprite :=  $characterSprites
 
-enum State { WALK, IDLE, ATTACK , JUMP , LAND , TAKE_OFF }
+enum State { WALK, IDLE, ATTACK , JUMP , LAND , TAKE_OFF  , JUMP_KICK}
 
 var state = State.IDLE
 var height := 0.0
@@ -50,10 +50,13 @@ func handle_input():
 	if can_junp() and Input.is_action_just_pressed("jump"):
 		print(">>> JUMP BUTTON PRESSED — switching to TAKE_OFF")
 		state = State.TAKE_OFF
+	if can_kick_jump() and Input.is_action_just_pressed("attack"):
+		state = State.JUMP_KICK
+
 
 func handle_movement():
 	# If we are in a non‑movement state, do not touch the state.
-	if state == State.ATTACK or state == State.TAKE_OFF or state == State.JUMP or state == State.LAND:
+	if state == State.ATTACK or state == State.TAKE_OFF or state == State.JUMP or state == State.LAND or state == State.JUMP_KICK:
 		return
 
 	# Only here are we allowed to change between IDLE and WALK.
@@ -71,6 +74,7 @@ func handle_animation() -> void:
 		State.JUMP:      animation_player.play("jump")
 		State.TAKE_OFF:  animation_player.play("take_off")
 		State.LAND:      animation_player.play("land")
+		State.JUMP_KICK: animation_player.play("jump_kick")
 
 
 func can_attack() -> bool:
@@ -115,9 +119,7 @@ func on_land_complete() -> void:
 
 
 func handle_air_time(delta : float):
-	if state == State.JUMP:
-		print("JUMPING — height:", height, " speed:", height_speed)
-
+	if state == State.JUMP or state == State.JUMP_KICK:
 		height += height_speed * delta
 		if height < 0:
 			print(">>> HIT GROUND — switching to LAND")
@@ -125,3 +127,7 @@ func handle_air_time(delta : float):
 			state = State.LAND
 		else:
 			height_speed -= Gravity * delta
+	
+		
+func can_kick_jump () -> bool :
+	return state == State.JUMP

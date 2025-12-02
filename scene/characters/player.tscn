@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cnhwqt2t3qajb"]
+[gd_scene load_steps=15 format=3 uid="uid://cnhwqt2t3qajb"]
 
 [ext_resource type="PackedScene" uid="uid://cd7m4iwugpa7k" path="res://scene/characters/character_body_2d.tscn" id="1_yu87a"]
 [ext_resource type="Texture2D" uid="uid://ch4pnws1b5203" path="res://assets/art/characters/player.png" id="2_7ajil"]
@@ -6,24 +6,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wq7vr"]
 radius = 3.0
 height = 12.0
-
-[sub_resource type="Animation" id="Animation_7ajil"]
-resource_name = "idle"
-length = 0.4
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("characterSprites:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
 
 [sub_resource type="Animation" id="Animation_wq7vr"]
 length = 0.001
@@ -64,9 +46,9 @@ tracks/2/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_qbs7g"]
-resource_name = "walk"
-length = 0.8
+[sub_resource type="Animation" id="Animation_7ajil"]
+resource_name = "idle"
+length = 0.4
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -76,10 +58,58 @@ tracks/0/path = NodePath("characterSprites:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [10, 11, 12, 13, 14, 15, 16, 17]
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_ovwpv"]
+resource_name = "jump"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("characterSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [62]
+}
+
+[sub_resource type="Animation" id="Animation_3o68y"]
+resource_name = "land"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("characterSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [60]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_land_complete"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_pe4me"]
@@ -168,9 +198,10 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_ovwpv"]
-resource_name = "jump"
-length = 0.5
+[sub_resource type="Animation" id="Animation_qbs7g"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -179,14 +210,17 @@ tracks/0/path = NodePath("characterSprites:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [62]
+"values": [10, 11, 12, 13, 14, 15, 16, 17]
 }
 
-[sub_resource type="Animation" id="Animation_3o68y"]
-resource_name = "land"
+[sub_resource type="Animation" id="Animation_3kvqf"]
+resource_name = "new_animation"
+
+[sub_resource type="Animation" id="Animation_qeppk"]
+resource_name = "jump_kick"
 length = 0.05
 step = 0.05
 tracks/0/type = "value"
@@ -199,21 +233,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [60]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.05),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"on_land_complete"
-}]
+"values": [63]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qbs7g"]
@@ -221,7 +241,9 @@ _data = {
 &"RESET": SubResource("Animation_wq7vr"),
 &"idle": SubResource("Animation_7ajil"),
 &"jump": SubResource("Animation_ovwpv"),
+&"jump_kick": SubResource("Animation_qeppk"),
 &"land": SubResource("Animation_3o68y"),
+&"new_animation": SubResource("Animation_3kvqf"),
 &"punch": SubResource("Animation_pe4me"),
 &"take_off": SubResource("Animation_ef3r4"),
 &"walk": SubResource("Animation_qbs7g")
@@ -233,8 +255,8 @@ size = Vector2(10, 5.5)
 [node name="player" instance=ExtResource("1_yu87a")]
 collision_layer = 2
 collision_mask = 9
-speed = 1000.0
-height_intensity = 100.0
+speed = 40.0
+height_intensity = 150.0
 
 [node name="characterSprites" parent="." index="1"]
 texture = ExtResource("2_7ajil")
